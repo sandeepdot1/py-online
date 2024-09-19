@@ -6,10 +6,11 @@ class SingleTon:
     obj = None
 
     def __new__(cls):
-        with my_lock:
-            if cls.obj is None:
-                cls.obj = super().__new__(cls)
-                return cls.obj
+        if cls.obj is None:
+            with my_lock:
+                if cls.obj is None:
+                    cls.obj = super().__new__(cls)
+                    return cls.obj
         
         return cls.obj
     
